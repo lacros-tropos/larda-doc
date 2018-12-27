@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guide to config-files &mdash; pyLARDA  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setup remote date source" href="setup_remote.html" />
+    <link rel="prev" title="Data container and transformations" href="datacontainer_and_transformation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pyLARDA
+          </a>
+              <div class="version">
+                3.3.8
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_use.html">How to use larda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datacontainer_and_transformation.html">Data container and transformations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Guide to config-files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-remarks">General remarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-sample-files">Setup sample files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#campaigns-config">Campaigns config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameter-config">Parameter config</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#path">path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generic">generic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#params">params</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup_remote.html">Setup remote date source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="peakTree.html">peakTree extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spectra.html">SpectraProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_overview.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">PyPi package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyLARDA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Guide to config-files</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/guide_config.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="guide-to-config-files">
+<h1>Guide to config-files<a class="headerlink" href="#guide-to-config-files" title="Link to this heading"></a></h1>
+<section id="general-remarks">
+<h2>General remarks<a class="headerlink" href="#general-remarks" title="Link to this heading"></a></h2>
+<p>Instead of <code class="docutils literal notranslate"><span class="pre">.csv</span></code> files als in previos versions, now <code class="docutils literal notranslate"><span class="pre">.toml</span></code> markup is used.
+An overview is provided here <a class="reference external" href="https://github.com/toml-lang/toml">https://github.com/toml-lang/toml</a></p>
+</section>
+<section id="setup-sample-files">
+<h2>Setup sample files<a class="headerlink" href="#setup-sample-files" title="Link to this heading"></a></h2>
+<p>To illustrate the configuration, some sample files are needed.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># make a folder in the the directory as larda, larda-cfg, and larda-connectordump
+mkdir -p example-data/categorize/2018 &amp;&amp; cd example-data/categorize/2018/
+wget http://devcloudnet.fmi.fi/cnet/limassol/processed/categorize/2018/20180208_limassol_categorize.nc
+cd ../../../
+mkdir -p example-data/classification/2018 &amp;&amp; example-data/classification/2018
+wget http://devcloudnet.fmi.fi/cnet/limassol/products/classification/2018/20180208_limassol_classification.nc
+</pre></div>
+</div>
+</section>
+<section id="campaigns-config">
+<h2>Campaigns config<a class="headerlink" href="#campaigns-config" title="Link to this heading"></a></h2>
+<p>The  <code class="docutils literal notranslate"><span class="pre">larda-cfg/campaigns.toml</span></code> config file is used to provide the general context of the data.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[lacros_cycare_example]
+    location = &quot;Limassol&quot;
+    coordinates = [34.677, 33.038]
+    altitude = 11
+    mira_azi_zero = 154
+    duration = [[&quot;20161018&quot;, &quot;today&quot;]]
+    systems = [&quot;CLOUDNET&quot;, &quot;MIRA&quot;]
+    system_only.CLOUDNET =  [[&#39;20161101&#39;, &#39;20190107&#39;], [&#39;20180101&#39;, &#39;20180214&#39;]]
+    system_only.MIRA =  [[&#39;20161101&#39;, &#39;20180401&#39;]]
+    cloudnet_stationname = &#39;limassol&#39;
+    info_text_loc = &#39;default&#39;
+    #info_text_loc = &#39;info_lacros.toml&#39;
+    param_config_file = &#39;params_cycare_example.toml&#39;
+    connectordump = &#39;/home/larda3/larda-connectordump/&#39;
+</pre></div>
+</div>
+</section>
+<section id="parameter-config">
+<h2>Parameter config<a class="headerlink" href="#parameter-config" title="Link to this heading"></a></h2>
+<p>The second level of configuration defines the parameters for each system in a file such as
+<code class="docutils literal notranslate"><span class="pre">params_cycare_example.toml</span></code>. The file lists different systems, such as <code class="docutils literal notranslate"><span class="pre">MIRA</span></code>, <code class="docutils literal notranslate"><span class="pre">CLOUDNET</span></code> or <code class="docutils literal notranslate"><span class="pre">POLLYNET</span></code>.
+Each systems’ config has three parts. An example is given below.</p>
+<section id="path">
+<h3>path<a class="headerlink" href="#path" title="Link to this heading"></a></h3>
+<p>Defines the paths, where to find the (netcdf) files containing the parameters.</p>
+<dl class="simple">
+<dt>base_dir</dt><dd><p>directory to start filesearch</p>
+</dd>
+<dt>matching_subdirs</dt><dd><p>regex, that describes the subpaths (including filename) that are matching_subdirs</p>
+</dd>
+<dt>date_in_filename</dt><dd><p>named groups in regex that identify the part of the filename, that contains the date</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>implicitly it is assumed, that the timestamp in the filename
+is the beginning of measurements</p>
+</div>
+</section>
+<section id="generic">
+<h3>generic<a class="headerlink" href="#generic" title="Link to this heading"></a></h3>
+<p>Set of properties, that is used for each parameter as default if not specified explicitly for the parameter itself.</p>
+</section>
+<section id="params">
+<h3>params<a class="headerlink" href="#params" title="Link to this heading"></a></h3>
+<p>Define the settings for each variable, that should be handled by larda.</p>
+<dl class="simple">
+<dt>time_variable</dt><dd><p>name of the time variable in the netcdf file</p>
+</dd>
+<dt>time_conversion</dt><dd><p>function that converts the time variable to unix timestamp</p>
+</dd>
+<dt>time_microsec_variable</dt><dd><p>if given specifies the variable containing the microseconds</p>
+</dd>
+<dt>time_millisec_variable</dt><dd><p>if given specifies the variable containing the milliseconds</p>
+</dd>
+<dt>range_variable</dt><dd><p>name of the range variable in the netcdf file</p>
+</dd>
+<dt>range_conversion</dt><dd><p>function that converts the range variable to meters. <code class="docutils literal notranslate"><span class="pre">'none'</span></code> if already given in that unit</p>
+</dd>
+<dt>var_conversion</dt><dd><p>function that converts the variable variable to meters. <code class="docutils literal notranslate"><span class="pre">'none'</span></code> if no conversion is desired</p>
+</dd>
+<dt>colormap</dt><dd><p>colormap to use by default</p>
+</dd>
+<dt>which_path</dt><dd><p>name of the path definition that matches the files for this parameter</p>
+</dd>
+<dt>ncreader</dt><dd><p>which reader to use</p>
+</dd>
+<dt>identifier_rg_unit</dt><dd><p>name of the range unit attribute in the netcdf varibale</p>
+</dd>
+<dt>identifier_var_unit</dt><dd><p>name of the var unit attribute in the netcdf varibale</p>
+</dd>
+<dt>identifier_var_lims</dt><dd><p>name of the var limits attribute in the netcdf varibale</p>
+</dd>
+<dt>var_lims</dt><dd><p>define limits of variable directly</p>
+</dd>
+<dt>var_name</dt><dd><p>name of the variable</p>
+</dd>
+<dt>vel_variable</dt><dd><p>velocity variable for reading spectra</p>
+</dd>
+<dt>dimorder</dt><dd><p>toggle the order of dimensions (i.e. mira nc file)</p>
+</dd>
+<dt>meta.*</dt><dd><p>dictionary of meta information extracted from variables, var attributes or global attributes</p>
+</dd>
+</dl>
+</section>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
+<p>The section for the Cloudnet configration in the <code class="docutils literal notranslate"><span class="pre">params_cycare_example.toml</span></code> might look like below.
+The absolute paths in <code class="docutils literal notranslate"><span class="pre">base_dir</span></code> will likely have to be adapted.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[CLOUDNET]
+    [CLOUDNET.path.categorize]
+        # mastering regex (here to exclude ppi and stuff)
+        base_dir = &#39;/home/larda3/example-data/categorize/&#39;
+        matching_subdirs = &#39;(\d{4}\/\d{8}.*.nc)&#39;
+        date_in_filename = &#39;(?P&lt;year&gt;\d{4})(?P&lt;month&gt;\d{2})(?P&lt;day&gt;\d{2})_&#39;
+    [CLOUDNET.path.productsclass]
+        # mastering regex (here to exclude ppi and stuff)
+        base_dir = &#39;/home/larda3/example-data/classification/&#39;
+        matching_subdirs = &#39;(\d{4}\/\d{8}.*.nc)&#39;
+        date_in_filename = &#39;(?P&lt;year&gt;\d{4})(?P&lt;month&gt;\d{2})(?P&lt;day&gt;\d{2})_&#39;
+    [CLOUDNET.generic]
+        # this general settings need to be handed down to the params
+        time_variable = &#39;time&#39;
+        range_variable = &#39;height&#39;
+        colormap = &quot;gist_rainbow&quot;
+        time_conversion = &#39;beginofday&#39;
+        range_conversion = &#39;sealevel2range&#39;
+        var_conversion = &#39;none&#39;
+        ncreader = &#39;timeheight&#39;
+        # if identifier is given read from ncfile, else define here
+        identifier_rg_unit = &#39;units&#39;
+        identifier_var_unit = &#39;units&#39;
+        identifier_var_lims = &#39;plot_range&#39;
+        identifier_fill_value = &#39;missing_value&#39;
+        #var_lims = [-40, 20]
+        meta.version = &quot;gattr.software_version&quot;
+        meta.history = &quot;gattr.history&quot;
+        meta.source = &quot;vattr.source&quot;
+        meta.latitude = &quot;var.latitude&quot;
+    [CLOUDNET.params.Z]
+        variable_name = &#39;Z&#39;
+        which_path = &#39;categorize&#39;
+        var_conversion = &#39;z2lin&#39;
+    [CLOUDNET.params.LDR]
+        variable_name = &#39;ldr&#39;
+        which_path = &#39;categorize&#39;
+        var_conversion = &#39;z2lin&#39;
+    [CLOUDNET.params.T]
+        variable_name = &#39;temperature&#39;
+        which_path = &#39;categorize&#39;
+        range_variable = &#39;model_height&#39;
+    [CLOUDNET.params.beta]
+        variable_name = &#39;beta&#39;
+        which_path = &#39;categorize&#39;
+    [CLOUDNET.params.depol]
+        variable_name = &#39;lidar_depolarisation&#39;
+        which_path = &#39;categorize&#39;
+        var_unit = &#39;%&#39;
+        var_lims = [0.0, 0.3]
+    [CLOUDNET.params.CLASS]
+        variable_name = &#39;target_classification&#39;
+        which_path = &#39;productsclass&#39;
+        var_unit = &quot;&quot;
+        var_lims = [0, 10]
+        colormap = &#39;cloudnet_target&#39;
+        fill_value = -99
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">var_conversion</span></code> allows for chained functions, such as <code class="docutils literal notranslate"><span class="pre">var_conversion</span> <span class="pre">=</span> <span class="pre">'z2lin,extrfromaxis2(0)'</span></code>.
+See <a class="reference internal" href="api_overview.html#pyLARDA.helpers.get_converter_array" title="pyLARDA.helpers.get_converter_array"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyLARDA.helpers.get_converter_array()</span></code></a>.</p>
+</div>
+<p>A template option is available for repeating datasets in different campaigns:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[CLOUDNET]
+    template = &#39;temp_cloudnet.toml&#39;
+    [CLOUDNET.path.categorize]
+        # mastering regex (here to exclude ppi and stuff)
+        base_dir = &#39;/home/larda3/example-data/categorize/&#39;
+        matching_subdirs = &#39;(\d{4}\/\d{8}.*.nc)&#39;
+        date_in_filename = &#39;(?P&lt;year&gt;\d{4})(?P&lt;month&gt;\d{2})(?P&lt;day&gt;\d{2})_&#39;
+    [CLOUDNET.path.productsclass]
+        # mastering regex (here to exclude ppi and stuff)
+        base_dir = &#39;/home/larda3/example-data/classification/&#39;
+        matching_subdirs = &#39;(\d{4}\/\d{8}.*.nc)&#39;
+        date_in_filename = &#39;(?P&lt;year&gt;\d{4})(?P&lt;month&gt;\d{2})(?P&lt;day&gt;\d{2})_&#39;
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">generic</span></code> and <code class="docutils literal notranslate"><span class="pre">params</span></code> section are then defined in <code class="file docutils literal notranslate"><span class="pre">larda-cfg/temp_cloudnet.toml</span></code>.
+In the <a class="reference internal" href="api_overview.html#pyLARDA.ParameterInfo.ParameterInfo" title="pyLARDA.ParameterInfo.ParameterInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyLARDA.ParameterInfo.ParameterInfo</span></code></a>, the template is updated with the campaign configuration.
+Hence, single <code class="docutils literal notranslate"><span class="pre">generic</span></code> or <code class="docutils literal notranslate"><span class="pre">params</span></code> configurations in the template can be overwritten.</p>
+<p>The configuration can be checked by running <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">ListCollector.py</span></code>
+Afterwards the connectordump at <code class="docutils literal notranslate"><span class="pre">larda-connectordump/lacros_cycare_example/connector_CLOUDNET.json</span></code>
+should look similar to</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+&quot;categorize&quot;: [
+    [
+    [
+        &quot;20180208-000000&quot;,
+        &quot;20180209-000000&quot;
+    ],
+    &quot;./2018/20180208_limassol_categorize.nc&quot;
+    ]
+],
+&quot;productsclass&quot;: [
+    [
+    [
+        &quot;20180208-000000&quot;,
+        &quot;20180209-000000&quot;
+    ],
+    &quot;./2018/20180208_limassol_classification.nc&quot;
+    ]
+]
+}
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="datacontainer_and_transformation.html" class="btn btn-neutral float-left" title="Data container and transformations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="setup_remote.html" class="btn btn-neutral float-right" title="Setup remote date source" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 pyLARDA-dev-team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
