@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data container and transformations &mdash; pyLARDA  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Guide to config-files" href="guide_config.html" />
+    <link rel="prev" title="How to use larda" href="how_to_use.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pyLARDA
+          </a>
+              <div class="version">
+                3.3.8
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_use.html">How to use larda</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data container and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-container-format">Data container format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transformations">Transformations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#interpolation">Interpolation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculations">Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slicing">Slicing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conversion-and-output">Conversion and output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyLARDA.Transformations">function list</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.join"><code class="docutils literal notranslate"><span class="pre">join()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.interpolate1d"><code class="docutils literal notranslate"><span class="pre">interpolate1d()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.interpolate2d"><code class="docutils literal notranslate"><span class="pre">interpolate2d()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.combine"><code class="docutils literal notranslate"><span class="pre">combine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.slice_container"><code class="docutils literal notranslate"><span class="pre">slice_container()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.select_closest"><code class="docutils literal notranslate"><span class="pre">select_closest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_timeseries"><code class="docutils literal notranslate"><span class="pre">plot_timeseries()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_profile"><code class="docutils literal notranslate"><span class="pre">plot_profile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_timeheight"><code class="docutils literal notranslate"><span class="pre">plot_timeheight()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_barbs_timeheight"><code class="docutils literal notranslate"><span class="pre">plot_barbs_timeheight()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_scatter"><code class="docutils literal notranslate"><span class="pre">plot_scatter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_frequency_of_occurrence"><code class="docutils literal notranslate"><span class="pre">plot_frequency_of_occurrence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_foo_general"><code class="docutils literal notranslate"><span class="pre">plot_foo_general()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_spectra"><code class="docutils literal notranslate"><span class="pre">plot_spectra()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_spectrogram"><code class="docutils literal notranslate"><span class="pre">plot_spectrogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.concat_images"><code class="docutils literal notranslate"><span class="pre">concat_images()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.concat_n_images"><code class="docutils literal notranslate"><span class="pre">concat_n_images()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_ppi"><code class="docutils literal notranslate"><span class="pre">plot_ppi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_rhi"><code class="docutils literal notranslate"><span class="pre">plot_rhi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.remsens_limrad_quicklooks"><code class="docutils literal notranslate"><span class="pre">remsens_limrad_quicklooks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.remsens_limrad_polarimetry_quicklooks"><code class="docutils literal notranslate"><span class="pre">remsens_limrad_polarimetry_quicklooks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.container2DataArray"><code class="docutils literal notranslate"><span class="pre">container2DataArray()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.roll_mean_2D"><code class="docutils literal notranslate"><span class="pre">roll_mean_2D()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_timeheight2"><code class="docutils literal notranslate"><span class="pre">plot_timeheight2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_binaryflag"><code class="docutils literal notranslate"><span class="pre">plot_binaryflag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_timeseries2"><code class="docutils literal notranslate"><span class="pre">plot_timeseries2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.plot_scatter2"><code class="docutils literal notranslate"><span class="pre">plot_scatter2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyLARDA.Transformations.delete_non_monotonic_elements"><code class="docutils literal notranslate"><span class="pre">delete_non_monotonic_elements()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#private-functions">private functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guide_config.html">Guide to config-files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_remote.html">Setup remote date source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="peakTree.html">peakTree extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spectra.html">SpectraProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_overview.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">PyPi package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyLARDA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data container and transformations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/datacontainer_and_transformation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-container-and-transformations">
+<h1>Data container and transformations<a class="headerlink" href="#data-container-and-transformations" title="Link to this heading"></a></h1>
+<section id="data-container-format">
+<h2>Data container format<a class="headerlink" href="#data-container-format" title="Link to this heading"></a></h2>
+<p>The connector provides the data loaded from the netcdf file as a data contianer (plain python <code class="docutils literal notranslate"><span class="pre">dict</span></code> with a specific set of keys).
+As a rule of thumb the <a class="reference internal" href="api_overview.html#module-pyLARDA.NcReader" title="pyLARDA.NcReader"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyLARDA.NcReader()</span></code></a> returns the variable in linear units, the time as unix timestamp and the range in m.
+Following keys are currently specified:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ts</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> containing unix timestamps</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rg</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> containing ranges (optional)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vel</span></code></p></td>
+<td><p>velocity (of Doppler spectrum, optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dimlabel</span></code></p></td>
+<td><p>eg <code class="docutils literal notranslate"><span class="pre">['time']</span></code>, <code class="docutils literal notranslate"><span class="pre">['time',</span> <span class="pre">'range']</span></code>, <code class="docutils literal notranslate"><span class="pre">['time',</span> <span class="pre">'range',</span> <span class="pre">'vel']</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">var</span></code></p></td>
+<td><p>the actual data as <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mask</span></code></p></td>
+<td><p>a bool mask <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> for the data</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">paraminfo</span></code></p></td>
+<td><p>the info dict derived for the parameter config file (do not mutate)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">filename</span></code></p></td>
+<td><p>the source file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rg_unit</span></code></p></td>
+<td><p>unit for the range</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">var_unit</span></code></p></td>
+<td><p>unit for the variable</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">var_lims</span></code></p></td>
+<td><p>limits for the plot</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">colormap</span></code></p></td>
+<td><p>colormap to use</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">plot_varconverter</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">meta</span></code></p></td>
+<td><p>dict of meta data read with the meta.* tags</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">var_definition</span></code></p></td>
+<td><p>(opt) dict definition of the variable (e.g. cloudnet class flags)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="transformations">
+<h2>Transformations<a class="headerlink" href="#transformations" title="Link to this heading"></a></h2>
+<p>Transformations operate on a single or several data container(s).</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>As a rule of thumb, transformations either return a data container or a plot.</p>
+</div>
+<section id="interpolation">
+<h3>Interpolation<a class="headerlink" href="#interpolation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># get a data_container</span>
+<span class="n">MIRA_Zg</span> <span class="o">=</span> <span class="n">larda</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;MIRA&quot;</span><span class="p">,</span><span class="s2">&quot;Zg&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">dt_begin</span><span class="p">,</span> <span class="n">dt_end</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4000</span><span class="p">])</span>
+<span class="c1"># plot it</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pyLARDA</span><span class="o">.</span><span class="n">Transformations</span><span class="o">.</span><span class="n">plot_timeheight</span><span class="p">(</span>
+    <span class="n">MIRA_Zg</span><span class="p">,</span> <span class="n">range_interval</span><span class="o">=</span><span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">3000</span><span class="p">],</span> <span class="n">z_converter</span><span class="o">=</span><span class="s1">&#39;lin2z&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;MIRA_Z.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+
+<span class="c1"># or for interpolation</span>
+<span class="n">interpolated_container</span> <span class="o">=</span> <span class="n">pyLARDA</span><span class="o">.</span><span class="n">Transformations</span><span class="o">.</span><span class="n">interpolate2d</span><span class="p">(</span><span class="n">MIRA_Zg</span><span class="p">,</span> <span class="n">new_time</span><span class="o">=</span><span class="n">array</span><span class="p">)</span>
+<span class="n">interpolated_container</span> <span class="o">=</span> <span class="n">pyLARDA</span><span class="o">.</span><span class="n">Transformations</span><span class="o">.</span><span class="n">interpolate2d</span><span class="p">(</span><span class="n">MIRA_Zg</span><span class="p">,</span> <span class="n">new_range</span><span class="o">=</span><span class="n">array</span><span class="p">)</span>
+
+<span class="n">h</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">MIRA_Zg</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="calculations">
+<h3>Calculations<a class="headerlink" href="#calculations" title="Link to this heading"></a></h3>
+<p>The arrays of a data container can either be modified directly</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># copy to not overwrite the values</span>
+<span class="n">data_new</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">data</span><span class="p">}</span>
+<span class="n">data_new</span><span class="p">[</span><span class="s1">&#39;var&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;var&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">15.3</span><span class="o">*</span><span class="mf">20.6</span>
+<span class="c1"># &#39;mask&#39; is also just a numpy array, though with boolean values</span>
+<span class="n">data_new</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">data_new</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">],</span> <span class="n">data_new</span><span class="p">[</span><span class="s1">&#39;var&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It is recommended to use the <a class="reference internal" href="#pyLARDA.Transformations.combine" title="pyLARDA.Transformations.combine"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyLARDA.Transformations.combine()</span></code></a> functionality, to not loose the meta-information:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">correct_Z_bias</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;var&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">.</span><span class="n">z2lin</span><span class="p">(</span><span class="mf">8.</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">var</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">]</span>
+
+<span class="n">Z_corrected</span> <span class="o">=</span> <span class="n">pyLARDA</span><span class="o">.</span><span class="n">Transformations</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">correct_Z_bias</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="p">{})</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Several plotting functions were refactored, consider using the new functions:
+<a class="reference internal" href="#pyLARDA.Transformations.plot_timeseries2" title="pyLARDA.Transformations.plot_timeseries2"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyLARDA.Transformations.plot_timeseries2()</span></code></a>, <a class="reference internal" href="#pyLARDA.Transformations.plot_timeheight2" title="pyLARDA.Transformations.plot_timeheight2"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyLARDA.Transformations.plot_timeheight2()</span></code></a>, <a class="reference internal" href="#pyLARDA.Transformations.plot_scatter2" title="pyLARDA.Transformations.plot_scatter2"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyLARDA.Transformations.plot_scatter2()</span></code></a></p>
+</div>
+</section>
+<section id="slicing">
+<h3>Slicing<a class="headerlink" href="#slicing" title="Link to this heading"></a></h3>
+<p>Subsetting of a data containter is facilitated with the <a class="reference internal" href="#pyLARDA.Transformations.slice_container" title="pyLARDA.Transformations.slice_container"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyLARDA.Transformations.slice_container()</span></code></a> function.</p>
+</section>
+<section id="conversion-and-output">
+<h3>Conversion and output<a class="headerlink" href="#conversion-and-output" title="Link to this heading"></a></h3>
+<p>Data containers can be easily converted into and <cite>xarray.DataArray</cite> with <a class="reference internal" href="#pyLARDA.Transformations.container2DataArray" title="pyLARDA.Transformations.container2DataArray"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyLARDA.Transformations.container2DataArray()</span></code></a>
+or stored into a netcdf with <code class="xref py py-meth docutils literal notranslate"><span class="pre">pyLARDA.NcWrite.write_simple_nc()</span></code>.</p>
+</section>
+</section>
+<section id="module-pyLARDA.Transformations">
+<span id="function-list"></span><h2>function list<a class="headerlink" href="#module-pyLARDA.Transformations" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.join">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datadict1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datadict2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#join"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.join" title="Link to this definition"></a></dt>
+<dd><p>join two data containers in time domain</p>
+<p>when you want to join more than two data containers use reduce as done
+in the connector</p>
+<p>they have to be in the correct time order</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datadict1</strong> – left data container</p></li>
+<li><p><strong>datadict2</strong> – right data container</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>merged data container</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.interpolate1d">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">interpolate1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_thres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#interpolate1d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.interpolate1d" title="Link to this definition"></a></dt>
+<dd><p>same as interpolate2d but for 1d containers (time or range dimension must be len 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – larda data container to be interpolated in its 1d-dimension</p></li>
+<li><p><strong>**kwargs</strong></p></li>
+<li><p><strong>new_time</strong> (<em>for interpolation in time dimension</em>) – new time vector to which data should be interpolated</p></li>
+<li><p><strong>new_range</strong> (<em>for interpolation in range dimension</em>) – new range vector to which data should be interpolated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>data_container</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.interpolate2d">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">interpolate2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_thres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#interpolate2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.interpolate2d" title="Link to this definition"></a></dt>
+<dd><p>interpolate timeheight data container</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mask_thres</strong> (<em>float</em><em>, </em><em>optional</em>) – threshold for the interpolated mask</p></li>
+<li><p><strong>**new_time</strong> (<em>np.array</em>) – new time axis</p></li>
+<li><p><strong>**new_range</strong> (<em>np.array</em>) – new range axis</p></li>
+<li><p><strong>**method</strong> (<em>str</em>) – if not given, use scipy.interpolate.RectBivariateSpline</p></li>
+<li><p><strong>arguments</strong> (<em>valid method</em>) – ‘linear’ - scipy.interpolate.interp2d
+‘nearest’ - scipy.interpolate.NearestNDInterpolator
+‘rectbivar’ (default) - scipy.interpolate.RectBivariateSpline</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>data_container</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.combine">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">combine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datalist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys_to_update</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#combine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.combine" title="Link to this definition"></a></dt>
+<dd><p>apply a func to the variable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – a function that takes [datacontainer1, datacontainer2, ..]
+as given input (order as given in datalist) and returns
+var, mask</p></li>
+<li><p><strong>datalist</strong> – list of data containers or single data container</p></li>
+<li><p><strong>keys_to_update</strong> – dictionary of keys to update</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>new data container</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.slice_container">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">slice_container</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#slice_container"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.slice_container" title="Link to this definition"></a></dt>
+<dd><p>slice a data_container either by values or indices (or combination of both)</p>
+<p>using on <a class="reference internal" href="api_overview.html#pyLARDA.helpers.argnearest" title="pyLARDA.helpers.argnearest"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyLARDA.helpers.argnearest()</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">slice_container</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">timestamp1</span><span class="p">],</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">]})</span>
+<span class="c1"># or</span>
+<span class="n">slice_container</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">timestamp1</span><span class="p">,</span> <span class="n">timestamp2</span><span class="p">],</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">]})</span>
+<span class="c1"># or</span>
+<span class="n">slice_container</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">]})</span>
+<span class="c1">#or</span>
+<span class="n">slice_container</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">timestamp1</span><span class="p">,</span> <span class="n">timestamp2</span><span class="p">]},</span>
+                      <span class="n">index</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">]})</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>dict</em>) – slice by value of coordinate axis</p></li>
+<li><p><strong>index</strong> (<em>dict</em>) – slice by index of axis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a sliced container</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.select_closest">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">select_closest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#select_closest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.select_closest" title="Link to this definition"></a></dt>
+<dd><p>Select closest time steps from larda container to given time steps and replaces original time steps
+with given ones
+Useful when plotting flag data, as interpolation does not work with categorical data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – larda container</p></li>
+<li><p><strong>ts</strong> (<em>ndarray</em>) – array with unix time steps</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>larda container with time steps closest to the given ones</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_timeseries">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_timeseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_timeseries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_timeseries" title="Link to this definition"></a></dt>
+<dd><p>plot a timeseries data container</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – data container</p></li>
+<li><p><strong>**time_interval</strong> (<em>list dt</em>) – constrain plot to this dt</p></li>
+<li><p><strong>**z_converter</strong> (<em>string</em>) – convert var before plotting
+use eg ‘lin2z’ or ‘log’</p></li>
+<li><p><strong>**var_converter</strong> (<em>string</em>) – alternate name for the z_converter</p></li>
+<li><p><strong>**figsize</strong> (<em>list</em>) – size of figure, default is <code class="docutils literal notranslate"><span class="pre">[10,</span> <span class="pre">5.7]</span></code></p></li>
+<li><p><strong>**linewidth</strong> (<em>float</em>) – controls the line width</p></li>
+<li><p><strong>**alpha</strong> (<em>float</em>) – controls transparency between [0, 1]</p></li>
+<li><p><strong>**label</strong> (<em>string</em><em>, </em><em>Bool</em>) – True, label the data automatically, otherwise use string</p></li>
+<li><p><strong>**time_diff_jumps</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_profile">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_profile" title="Link to this definition"></a></dt>
+<dd><p>plot a profile data container</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – data container</p></li>
+<li><p><strong>**range_interval</strong> (<em>list</em>) – constrain plot to this ranges</p></li>
+<li><p><strong>**z_converter</strong> (<em>string</em>) – convert var before plotting
+use eg ‘lin2z’ or ‘log’</p></li>
+<li><p><strong>**var_converter</strong> (<em>string</em>) – alternate name for the z_converter</p></li>
+<li><p><strong>**figsize</strong> (<em>list</em>) – size of figure, default is <code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">5.7]</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_timeheight">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_timeheight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_timeheight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_timeheight" title="Link to this definition"></a></dt>
+<dd><p>plot a timeheight data container</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – data container</p></li>
+<li><p><strong>**time_interval</strong> (<em>list dt</em>) – constrain plot to this dt</p></li>
+<li><p><strong>**range_interval</strong> (<em>list float</em>) – constrain plot to this ranges</p></li>
+<li><p><strong>**z_converter</strong> (<em>string</em>) – convert var before plotting
+use eg ‘lin2z’ or ‘log’</p></li>
+<li><p><strong>**var_converter</strong> (<em>string</em>) – alternate name for the z_converter</p></li>
+<li><p><strong>**contour</strong> – add a countour</p></li>
+<li><p><strong>**figsize</strong> (<em>list</em>) – size of figure, default is <code class="docutils literal notranslate"><span class="pre">[10,</span> <span class="pre">5.7]</span></code></p></li>
+<li><p><strong>**zlim</strong> (<em>list</em>) – set vmin and vmax of color axis</p></li>
+<li><p><strong>**title</strong> – True/False or string, True will auto-generate title</p></li>
+<li><p><strong>**rg_converter</strong> – True/false, True will convert from “m” to “km”</p></li>
+<li><p><strong>**time_diff_jumps</strong> – default is 60</p></li>
+<li><p><strong>**fig</strong> – add to an existing figure</p></li>
+<li><p><strong>**ax</strong> – add to an existing axis</p></li>
+<li><p><strong>**cbar</strong> – removes cbar if False</p></li>
+<li><p><strong>**mask</strong></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_barbs_timeheight">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_barbs_timeheight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_wind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_wind</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_barbs_timeheight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_barbs_timeheight" title="Link to this definition"></a></dt>
+<dd><p>barb plot for plotting of horizontal wind vector</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u_wind</strong> (<em>dict</em>) – u component of horizontal wind, m/s</p></li>
+<li><p><strong>v_wind</strong> (<em>dict</em>) – v component of horizontal wind, m/s</p></li>
+<li><p><strong>args</strong></p></li>
+<li><p><strong>*sounding_data</strong> – data container (dict) Wyoming radiosounding, m/s</p></li>
+<li><p><strong>**range_interval</strong> – range interval to be plotted</p></li>
+<li><p><strong>**figsize</strong> – size of png (default is [10, 5.7])</p></li>
+<li><p><strong>**all_data</strong> – True/False, default is False (plot only every third height bin)</p></li>
+<li><p><strong>**z_lim</strong> – min/max velocity for plot (default is 0, 25 m/s)</p></li>
+<li><p><strong>**labelsize</strong> – size of the axis labels (default 12)</p></li>
+<li><p><strong>**barb_length</strong> – length of the barb (default 5)</p></li>
+<li><p><strong>**flip_barb</strong> – bool to flip the barb for the SH  (default is false (=NH))</p></li>
+<li><p><strong>**fig</strong> – existing matplotlib figure</p></li>
+<li><p><strong>**ax</strong> – existing matplotlib axis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_scatter">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_container1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_container2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identity_line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_scatter" title="Link to this definition"></a></dt>
+<dd><p>scatter plot for variable comparison between two devices or variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_container1</strong> (<em>dict</em>) – container 1st device</p></li>
+<li><p><strong>data_container2</strong> (<em>dict</em>) – container 2nd device</p></li>
+<li><p><strong>x_lim</strong> (<em>list</em>) – limits of var used for x axis</p></li>
+<li><p><strong>y_lim</strong> (<em>list</em>) – limits of var used for y axis</p></li>
+<li><p><strong>c_lim</strong> (<em>list</em>) – limits of var used for color axis</p></li>
+<li><p><strong>**identity_line</strong> (<em>bool</em>) – plot 1:1 line if True</p></li>
+<li><p><strong>**z_converter</strong> (<em>string</em>) – convert var before plotting use eg ‘lin2z’</p></li>
+<li><p><strong>**var_converter</strong> (<em>string</em>) – alternate name for the z_converter</p></li>
+<li><p><strong>**custom_offset_lines</strong> (<em>float</em>) – plot 4 extra lines for given distance</p></li>
+<li><p><strong>**info</strong> (<em>bool</em>) – print slope, interception point and R^2 value</p></li>
+<li><p><strong>**figsize</strong> (<em>list</em>) – size of the figure in inches</p></li>
+<li><p><strong>**font_size</strong> (<em>int</em>) – default: 15</p></li>
+<li><p><strong>**font_weight</strong> (<em>int</em>) – default: semibold</p></li>
+<li><p><strong>**colorbar</strong> (<em>bool</em>) – if True, add a colorbar to the scatterplot</p></li>
+<li><p><strong>**color_by</strong> (<em>dict</em>) – data container 3rd device</p></li>
+<li><p><strong>**scale</strong> (<em>string</em>) – ‘lin’ or ‘log’ –&gt; if you get a ValueError from matplotlib.colors
+try setting scale to lin, log does not work for negative values!</p></li>
+<li><p><strong>**cmap</strong> (<em>string</em>) – colormap</p></li>
+<li><p><strong>**formstring</strong> (<em>string</em>) – format string to use as key word argument to fig.colorbar, overwrites the default values
+for ‘lin’ or ‘log’ scale. E.g. use “%.2f” for displaying two digits</p></li>
+<li><p><strong>**Nbins</strong> (<em>int</em>) – number of bins for histograms</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_frequency_of_occurrence">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_frequency_of_occurrence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_frequency_of_occurrence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_frequency_of_occurrence" title="Link to this definition"></a></dt>
+<dd><p>Frequency of occurrence diagram of a variable (number of occurrence for each range bin).
+x-axis is separated into n bins, default value for n = 100.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – container of Ze values</p></li>
+<li><p><strong>**n_bins</strong> (<em>integer</em>) – number of bins for reflectivity values (x-axis), default 100</p></li>
+<li><p><strong>**x_lim</strong> (<em>list</em>) – limits of x-axis, default: data[‘var_lims’]</p></li>
+<li><p><strong>**y_lim</strong> (<em>list</em>) – limits of y-axis, default: minimum and maximum of data[‘rg’]</p></li>
+<li><p><strong>**z_converter</strong> (<em>string</em>) – convert var before plotting use eg ‘lin2z’</p></li>
+<li><p><strong>**var_converter</strong> (<em>string</em>) – alternate name for the z_converter</p></li>
+<li><p><strong>**range_offset</strong> (<em>list</em>) – range values where chirp shift occurs</p></li>
+<li><p><strong>**sensitivity_limit</strong> (<em>np.array</em>) – 1-Dim array containing the minimum sensitivity values for each range</p></li>
+<li><p><strong>**title</strong> (<em>string</em>) – plot title string if given, otherwise not title</p></li>
+<li><p><strong>**legend</strong> (<em>bool</em>) – prints legend, default True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_foo_general">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_foo_general</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_foo_general"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_foo_general" title="Link to this definition"></a></dt>
+<dd><p>Frequency of occurrence diagram of a variable (number of occurrence binned by another variable).
+x-axis is separated into n bins, default value for n = 100.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_1</strong> (<em>dict</em>) – container of e.g. Ze values</p></li>
+<li><p><strong>data_2</strong> (<em>dict</em>) – container of e.g. velocity values</p></li>
+<li><p><strong>**x_bins</strong> (<em>integer</em>) – number of bins for dataset 2 values (x-axis), default 100</p></li>
+<li><p><strong>**y_bins</strong> (<em>integer</em>) – number of bins for dataset 1 values (y-axis), default 100</p></li>
+<li><p><strong>**x_lim</strong> (<em>list</em>) – limits of x-axis, default: data_2[‘var_lims’]</p></li>
+<li><p><strong>**y_lim</strong> (<em>list</em>) – limits of y-axis, default: data_1[‘var_lims’]</p></li>
+<li><p><strong>**z_converter</strong> (<em>string</em>) – convert var before plotting use eg ‘lin2z’</p></li>
+<li><p><strong>**var_converter</strong> (<em>string</em>) – alternate name for the z_converter</p></li>
+<li><p><strong>**range_offset</strong> (<em>list</em>) – range values where chirp shift occurs</p></li>
+<li><p><strong>**sensitivity_limit</strong> (<em>np.array</em>) – 1-Dim array containing the minimum sensitivity values for each range</p></li>
+<li><p><strong>**title</strong> (<em>string</em>) – plot title string if given, otherwise not title</p></li>
+<li><p><strong>**legend</strong> (<em>bool</em>) – prints legend, default True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_spectra">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_spectra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_spectra"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_spectra" title="Link to this definition"></a></dt>
+<dd><p>Finds the closest match to a given point in time and height and plot Doppler spectra.</p>
+<p class="rubric">Notes</p>
+<p>The user is able to provide sliced containers, e.g.</p>
+<ul class="simple">
+<li><p>one spectrum: <code class="docutils literal notranslate"><span class="pre">data['dimlabel']</span> <span class="pre">=</span> <span class="pre">['vel']</span></code></p></li>
+<li><p>range spectrogram: <code class="docutils literal notranslate"><span class="pre">data['dimlabel']</span> <span class="pre">=</span> <span class="pre">['range',</span> <span class="pre">'vel']</span></code></p></li>
+<li><p>time spectrogram: <code class="docutils literal notranslate"><span class="pre">data['dimlabel']</span> <span class="pre">=</span> <span class="pre">['time,</span> <span class="pre">'vel']</span></code></p></li>
+<li><p>time-range spectrogram: <code class="docutils literal notranslate"><span class="pre">data['dimlabel']</span> <span class="pre">=</span> <span class="pre">['time,</span> <span class="pre">'range',</span> <span class="pre">'vel']</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – data container</p></li>
+<li><p><strong>*data2</strong> (<em>dict</em><em> or </em><em>numpy.ndarray</em>) – data container of a second device</p></li>
+<li><p><strong>**z_converter</strong> (<em>string</em>) – convert var before plotting use eg ‘lin2z’</p></li>
+<li><p><strong>**var_converter</strong> (<em>string</em>) – alternate name for the z_converter</p></li>
+<li><p><strong>**velmin</strong> (<em>float</em>) – minimum x axis value</p></li>
+<li><p><strong>**velmax</strong> (<em>float</em>) – maximum x axis value</p></li>
+<li><p><strong>**vmin</strong> (<em>float</em>) – minimum y axis value</p></li>
+<li><p><strong>**vmax</strong> (<em>float</em>) – maximum y axis value</p></li>
+<li><p><strong>**save</strong> (<em>string</em>) – location where to save the pngs</p></li>
+<li><p><strong>**figsize</strong> (<em>list</em>) – size of png, default is [10, 5.7]</p></li>
+<li><p><strong>**mean</strong> (<em>float</em>) – numpy array dimensions (time, height, 2) containing mean noise level for each spectra
+in linear units [mm6/m3]</p></li>
+<li><p><strong>**thresh</strong> (<em>float</em>) – numpy array dimensions (time, height, 2) containing noise threshold for each spectra
+in linear units [mm6/m3]</p></li>
+<li><p><strong>**text</strong> (<em>Bool</em>) – should time/height info be added as text into plot?</p></li>
+<li><p><strong>**title</strong> (<em>str</em><em> or </em><em>bool</em>)</p></li>
+<li><p><strong>**smooth</strong> (<em>bool</em>) – if True, regular pyplot plot function is used (default is step)</p></li>
+<li><p><strong>**alpha</strong> (<em>float</em>) – triggers transparency of the line plot (not the bar plot), 0 &lt;= alpha &lt;= 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p>fig (pyplot figure): contains the figure of the plot
+(for multiple spectra, the last fig is returned)</p></li>
+<li><p>ax (pyplot axis): contains the axis of the plot
+(for multiple spectra, the last ax is returned)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_spectrogram">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_spectrogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_spectrogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_spectrogram" title="Link to this definition"></a></dt>
+<dd><p>Plot a time or height spectrogram</p>
+<p>The user is able to provide sliced containers, e.g.</p>
+<ul class="simple">
+<li><p>range spectrogram: <code class="docutils literal notranslate"><span class="pre">data['dimlabel']</span> <span class="pre">=</span> <span class="pre">['range',</span> <span class="pre">'vel']</span></code></p></li>
+<li><p>time spectrogram: <code class="docutils literal notranslate"><span class="pre">data['dimlabel']</span> <span class="pre">=</span> <span class="pre">['time,</span> <span class="pre">'vel']</span></code></p></li>
+<li><p>time-range spectrogram: <code class="docutils literal notranslate"><span class="pre">data['dimlabel']</span> <span class="pre">=</span> <span class="pre">['time,</span> <span class="pre">'range',</span> <span class="pre">'vel']</span></code></p></li>
+</ul>
+<p>In the latter case, a height or time (value or index) must be provided
+at which the time / height spectrogram should be drawn</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – data container</p></li>
+<li><p><strong>**index</strong> (<em>dict</em>) – either {‘time’: time index} or {‘range’: range index}</p></li>
+<li><p><strong>**z_converter</strong> (<em>string</em>) – convert var before plotting use eg ‘lin2z’</p></li>
+<li><p><strong>**var_converter</strong> (<em>string</em>) – alternate name for the z_converter</p></li>
+<li><p><strong>**figsize</strong> (<em>list</em>) – size of png, default is [10, 5.7]</p></li>
+<li><p><strong>**v_lims</strong> (<em>list</em>) – limits of Doppler velocity to be plotted</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p>fig (pyplot figure): contains the figure of the plot</p></li>
+<li><p>ax (pyplot axis): contains the axis of the plot</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.concat_images">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">concat_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imga</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imgb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#concat_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.concat_images" title="Link to this definition"></a></dt>
+<dd><p>Combines two color image ndarrays side-by-side.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.concat_n_images">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">concat_n_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#concat_n_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.concat_n_images" title="Link to this definition"></a></dt>
+<dd><p>Combines N color images from a list of image path.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_ppi">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_ppi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">azimuth</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_ppi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_ppi" title="Link to this definition"></a></dt>
+<dd><p>plot a mira plan-position-indicator scan</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – data_container holding the variable of the scan (Z, v, ..)</p></li>
+<li><p><strong>azimuth</strong> (<em>dict</em>) – data_container with the azimuth data</p></li>
+<li><p><strong>**z_converter</strong> (<em>string</em>) – convert var before plotting use eg ‘lin2z’</p></li>
+<li><p><strong>**var_converter</strong> (<em>string</em>) – alternate name for the z_converter</p></li>
+<li><p><strong>**elv</strong> (<em>float</em>) – elevation other than 75 deg</p></li>
+<li><p><strong>**figsize</strong> (<em>list</em>) – size of png, default is [10, 5.7]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_rhi">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_rhi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elv</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_rhi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_rhi" title="Link to this definition"></a></dt>
+<dd><p>plot a mira range-height-indicator scan</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – data_container holding the variable of the scan (Z, LDR, ..)</p></li>
+<li><p><strong>elv</strong> (<em>dict</em>) – data_container with the elevation data</p></li>
+<li><p><strong>**z_converter</strong> (<em>string</em>) – convert var before plotting use eg ‘lin2z’</p></li>
+<li><p><strong>**var_converter</strong> (<em>string</em>) – alternate name for the z_converter</p></li>
+<li><p><strong>**figsize</strong> (<em>list</em>) – size of png, default is [10, 5.7]</p></li>
+<li><p><strong>**title</strong> (<em>str</em><em> or </em><em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.remsens_limrad_quicklooks">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">remsens_limrad_quicklooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container_dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#remsens_limrad_quicklooks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.remsens_limrad_quicklooks" title="Link to this definition"></a></dt>
+<dd><p>plot the daily overview for the standard radar moments</p>
+<p>Content of <cite>container_dict</cite>:
+<cite>Ze</cite>, <cite>VEL</cite>, <cite>sw</cite>, <cite>ldr</cite>, <cite>LWP</cite>, <cite>rr</cite>
+optional: <cite>SurfTemp</cite>, <cite>SurfWS</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>container_dict</strong> (<em>dict</em>) – data container</p></li>
+<li><p><strong>**plot_range</strong> (<em>list</em>) – plot base and top in m</p></li>
+<li><p><strong>**timespan</strong> (<em>str</em>) – 24h for daily plot</p></li>
+<li><p><strong>**mask_jumps</strong> (<em>bool</em>) – mask gaps due to scans</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.remsens_limrad_polarimetry_quicklooks">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">remsens_limrad_polarimetry_quicklooks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container_dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#remsens_limrad_polarimetry_quicklooks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.remsens_limrad_polarimetry_quicklooks" title="Link to this definition"></a></dt>
+<dd><p>plot the daily overview for the polarimetric variables</p>
+<p>Content of <cite>container_dict</cite>:
+<cite>Ze</cite>, <cite>ldr</cite>, <cite>ZDR</cite>, <cite>RHV</cite>, <cite>LWP</cite>, <cite>rr</cite>
+optional: <cite>SurfTemp</cite>, <cite>SurfWS</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>container_dict</strong> (<em>dict</em>) – data container</p></li>
+<li><p><strong>**plot_range</strong> (<em>list</em>) – plot base and top in m</p></li>
+<li><p><strong>**timespan</strong> (<em>str</em>) – 24h for daily plot</p></li>
+<li><p><strong>**mask_jumps</strong> (<em>bool</em>) – mask gaps due to scans</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.container2DataArray">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">container2DataArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#container2DataArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.container2DataArray" title="Link to this definition"></a></dt>
+<dd><p>convert the data_container to a xarray Dataset</p>
+<p><code class="docutils literal notranslate"><span class="pre">time</span></code> dimension (named <code class="docutils literal notranslate"><span class="pre">ts</span></code>) is converted to datatime.datetime and to datetime64</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – data_container</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.roll_mean_2D">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">roll_mean_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowsize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#roll_mean_2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.roll_mean_2D" title="Link to this definition"></a></dt>
+<dd><p>Calculate a rolling mean over a given axis of a 2D (time x range) array
+:param matrix: 2D (time x range) matrix
+:type matrix: ndarray
+:param windowsize: size of the moving window
+:type windowsize: int
+:param dim: over which dimension to apply the mean, ‘time’ or ‘range’
+:type dim: str</p>
+<p>Returns: 2D matrix of averaged values</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_timeheight2">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_timeheight2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs:</span> <span class="pre">dict)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;function</span> <span class="pre">figure</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36c220&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;function</span> <span class="pre">axis</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36ed40&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_timeheight2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_timeheight2" title="Link to this definition"></a></dt>
+<dd><p>Plot a timeheight larda container or xarray Dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – data container</p></li>
+<li><p><strong>**figure</strong> (<em>optional</em>) – already open matplotlib figure</p></li>
+<li><p><strong>**axis</strong> (<em>optional</em>) – already open matplotlib axis</p></li>
+<li><p><strong>**colormp</strong> (<em>optional</em>) – string key from matplotlib colormaps</p></li>
+<li><p><strong>**mask</strong> (<em>optional</em>) – additional variable mask (invalid/missing data)</p></li>
+<li><p><strong>**rg_converter</strong> (<em>optional</em>) – if True converting from m to km for 2D plots</p></li>
+<li><p><strong>**time_interval</strong> (<em>optional</em>) – restricts the xaxis for time series and 2D data</p></li>
+<li><p><strong>**range_interval</strong> (<em>optional</em>) – restricts the yaxis for 2D data</p></li>
+<li><p><strong>**var_lims</strong> (<em>optional</em>) – new data limits, default: var_lims of data</p></li>
+<li><p><strong>**fontsize</strong> (<em>optional</em>) – figure font size</p></li>
+<li><p><strong>**labelsize</strong> (<em>optional</em>) – colorbar label size</p></li>
+<li><p><strong>**fontweight</strong> (<em>optional</em>) – axis label font weight</p></li>
+<li><p><strong>**cbar</strong> (<em>optional</em>) – if False, hides the colorbar from the plot</p></li>
+<li><p><strong>**linewidth</strong> (<em>optional</em>) – width of time series data line plot</p></li>
+<li><p><strong>**alpha</strong> (<em>optional</em>) – alpha of time series data line plot</p></li>
+<li><p><strong>**zlim</strong> (<em>optional</em>) – if provided, these colorbar limits will get passed through</p></li>
+<li><p><strong>**var_converter</strong> (<em>optional</em>) – other name for variable converter string</p></li>
+<li><p><strong>**z_converter</strong> (<em>optional</em>) – variable converter string</p></li>
+<li><p><strong>**contour</strong> (<em>optional</em>) – dictionary with keys ‘data’ and ‘levels’ (optional), where data is an xarray or larda dict</p></li>
+<li><p><strong>**contour_col</strong> (<em>optional</em>) – string defining the color of the contour, default is ‘black’</p></li>
+<li><p><strong>**label</strong> (<em>optional</em>) – label name if string or autogenerated label if True, else no label</p></li>
+<li><p><strong>**clim</strong> (<em>optional</em>) – colorbar limits</p></li>
+<li><p><strong>**title</strong> (<em>optional</em>) – title string</p></li>
+<li><p><strong>**title_loc</strong> (<em>optional</em>) – location string for title (‘center’, ‘left’, ‘right’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_binaryflag">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_binaryflag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs:</span> <span class="pre">dict)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;function</span> <span class="pre">figure</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36c220&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;function</span> <span class="pre">axis</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36ed40&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_binaryflag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_binaryflag" title="Link to this definition"></a></dt>
+<dd><p>Plot a timeheight larda container or xarray Dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – data container</p></li>
+<li><p><strong>**figure</strong> (<em>optional</em>) – already open matplotlib figure</p></li>
+<li><p><strong>**axis</strong> (<em>optional</em>) – already open matplotlib axis</p></li>
+<li><p><strong>**mask</strong> (<em>optional</em>) – additional variable mask (invalid/missing data)</p></li>
+<li><p><strong>**time_interval</strong> (<em>optional</em>) – restricts the xaxis for time series and 2D data</p></li>
+<li><p><strong>**var_lims</strong> (<em>optional</em>) – new data limits, default: var_lims of data</p></li>
+<li><p><strong>**fontsize</strong> (<em>optional</em>) – figure font size</p></li>
+<li><p><strong>**labelsize</strong> (<em>optional</em>) – colorbar label size</p></li>
+<li><p><strong>**fontweight</strong> (<em>optional</em>) – axis label font weight</p></li>
+<li><p><strong>**cbar</strong> (<em>optional</em>) – if False, hides the colorbar from the plot</p></li>
+<li><p><strong>**linewidth</strong> (<em>optional</em>) – width of time series data line plot</p></li>
+<li><p><strong>**alpha</strong> (<em>optional</em>) – alpha of time series data line plot</p></li>
+<li><p><strong>**var_converter</strong> (<em>optional</em>) – other name for variable converter string</p></li>
+<li><p><strong>**z_converter</strong> (<em>optional</em>) – variable converter string</p></li>
+<li><p><strong>**label</strong> (<em>optional</em>) – label name if string or autogenerated label if True, else no label</p></li>
+<li><p><strong>**clim</strong> (<em>optional</em>) – colorbar limits</p></li>
+<li><p><strong>**title</strong> (<em>optional</em>) – title string</p></li>
+<li><p><strong>**title_loc</strong> (<em>optional</em>) – location string for title (‘center’, ‘left’, ‘right’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_timeseries2">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_timeseries2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs:</span> <span class="pre">dict)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;function</span> <span class="pre">figure</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36c220&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;function</span> <span class="pre">axis</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36ed40&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_timeseries2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_timeseries2" title="Link to this definition"></a></dt>
+<dd><p>Plot a timeseries data container or xarray dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – data container</p></li>
+<li><p><strong>**figure</strong> (<em>optional</em>) – already open matplotlib figure</p></li>
+<li><p><strong>**axis</strong> (<em>optional</em>) – already open matplotlib axis</p></li>
+<li><p><strong>**colormp</strong> (<em>optional</em>) – string key from matplotlib colormaps</p></li>
+<li><p><strong>**mask</strong> (<em>optional</em>) – additional variable mask (invalid/missing data)</p></li>
+<li><p><strong>**time_interval</strong> (<em>optional</em>) – restricts the xaxis for time series and 2D data</p></li>
+<li><p><strong>**var_lims</strong> (<em>optional</em>) – new data limits, default: var_lims of data</p></li>
+<li><p><strong>**figsize</strong> (<em>optional</em>) – size of the figure in inches</p></li>
+<li><p><strong>**fontsize</strong> (<em>optional</em>) – figure font size</p></li>
+<li><p><strong>**labelsize</strong> (<em>optional</em>) – colorbar label size</p></li>
+<li><p><strong>**fontweight</strong> (<em>optional</em>) – axis label font weight</p></li>
+<li><p><strong>**cbar</strong> (<em>optional</em>) – if False, hides the colorbar from the plot</p></li>
+<li><p><strong>**linewidth</strong> (<em>optional</em>) – width of time series data line plot</p></li>
+<li><p><strong>**alpha</strong> (<em>optional</em>) – alpha of time series data line plot</p></li>
+<li><p><strong>**zlim</strong> (<em>optional</em>) – if provided, these colorbar limits will get passed through</p></li>
+<li><p><strong>**var_converter</strong> (<em>optional</em>) – other name for variable converter string</p></li>
+<li><p><strong>**z_converter</strong> (<em>optional</em>) – variable converter string</p></li>
+<li><p><strong>**contour</strong> (<em>optional</em>) – dictionary with keys ‘data’ and ‘levels’ (optional), where data is an xarray or larda dict</p></li>
+<li><p><strong>**label</strong> (<em>optional</em>) – label name if string or autogenerated label if True, else no label</p></li>
+<li><p><strong>**clim</strong> (<em>optional</em>) – colorbar limits</p></li>
+<li><p><strong>**title</strong> (<em>optional</em>) – title string</p></li>
+<li><p><strong>**title_loc</strong> (<em>optional</em>) – location string for title (‘center’, ‘left’, ‘right’)</p></li>
+<li><p><strong>**x_lim</strong> (<em>optional</em>) – x axis limit</p></li>
+<li><p><strong>**y_lim</strong> (<em>optional</em>) – y axis limit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.plot_scatter2">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">plot_scatter2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data1:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data2:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identity_line:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize:</span> <span class="pre">~typing.List[float]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_by:</span> <span class="pre">dict</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'lin'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nbins:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;function</span> <span class="pre">figure</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36c220&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;function</span> <span class="pre">axis</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36ed40&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#plot_scatter2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.plot_scatter2" title="Link to this definition"></a></dt>
+<dd><p>Scatter plot for variable comparison between two devices or variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data1</strong> – container 1st device</p></li>
+<li><p><strong>data2</strong> – container 2nd device</p></li>
+<li><p><strong>identity_line</strong> (<em>optional</em>) – plot 1:1 line if True</p></li>
+<li><p><strong>figsize</strong> (<em>optional</em>) – size of the figure in inches</p></li>
+<li><p><strong>color_by</strong> (<em>optional</em>) – data container 3rd device</p></li>
+<li><p><strong>scale</strong> (<em>optional</em>) – ‘lin’ or ‘log’ –&gt; if you get a ValueError from matplotlib.colors
+try setting scale to lin, log does not work for negative values!</p></li>
+<li><p><strong>Nbins</strong> (<em>optional</em>) – number of bins for histogram</p></li>
+<li><p><strong>**figure</strong> (<em>optional</em>) – already open matplotlib figure</p></li>
+<li><p><strong>**axis</strong> (<em>optional</em>) – already open matplotlib axis</p></li>
+<li><p><strong>**colormp</strong> (<em>optional</em>) – string key from matplotlib colormaps</p></li>
+<li><p><strong>**mask</strong> (<em>optional</em>) – additional variable mask (invalid/missing data)</p></li>
+<li><p><strong>**var_lims</strong> (<em>optional</em>) – new data limits, default: var_lims of data</p></li>
+<li><p><strong>**fontsize</strong> (<em>optional</em>) – figure font size</p></li>
+<li><p><strong>**labelsize</strong> (<em>optional</em>) – colorbar label size</p></li>
+<li><p><strong>**fontweight</strong> (<em>optional</em>) – axis label font weight</p></li>
+<li><p><strong>**cbar</strong> (<em>optional</em>) – if False, hides the colorbar from the plot</p></li>
+<li><p><strong>**linewidth</strong> (<em>optional</em>) – width of time series data line plot</p></li>
+<li><p><strong>**alpha</strong> (<em>optional</em>) – alpha of time series data line plot</p></li>
+<li><p><strong>**zlim</strong> (<em>optional</em>) – if provided, these colorbar limits will get passed through</p></li>
+<li><p><strong>**var_converter</strong> (<em>optional</em>) – other name for variable converter string</p></li>
+<li><p><strong>**z_converter</strong> (<em>optional</em>) – variable converter string</p></li>
+<li><p><strong>**contour</strong> (<em>optional</em>) – dictionary with keys ‘data’ and ‘levels’ (optional), where data is an xarray or larda dict</p></li>
+<li><p><strong>**label</strong> (<em>optional</em>) – label name if string or autogenerated label if True, else no label</p></li>
+<li><p><strong>**clim</strong> (<em>optional</em>) – colorbar limits</p></li>
+<li><p><strong>**title</strong> (<em>optional</em>) – title string</p></li>
+<li><p><strong>**title_loc</strong> (<em>optional</em>) – location string for title (‘center’, ‘left’, ‘right’)</p></li>
+<li><p><strong>**x_lim</strong> (<em>optional</em>) – x axis limit</p></li>
+<li><p><strong>**y_lim</strong> (<em>optional</em>) – y axis limit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>ax</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyLARDA.Transformations.delete_non_monotonic_elements">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">delete_non_monotonic_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#delete_non_monotonic_elements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyLARDA.Transformations.delete_non_monotonic_elements" title="Link to this definition"></a></dt>
+<dd><p>Delete non-monotonic timestamp elements from data-dict container</p>
+<p>For some instruments (i.e. pollyxt, hatpro) there is sometimes a non-monotonic behaviour within the timestamps.
+This function creates a mask for all elements, where the diff of element n+1 and element n is smaller or same as Zero
+by using the functionality of the cumulative maximum.
+This mask is used to delete those elements in the array of container[‘ts’], container[‘var’] and container[‘mask’]
+and returns a corrected container.
+This ensures for example the usage of the xarray resampling function for
+converted pylarda dictionaries (Transformations.container2DataArray).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – data_container</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>corrected_data_container</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="private-functions">
+<h2>private functions<a class="headerlink" href="#private-functions" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_add_identity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">line_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">line_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_add_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>helper function for the scatter plot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>axes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_new_fig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figsize:</span> <span class="pre">~typing.List[float]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure:</span> <span class="pre">~matplotlib.pyplot.figure</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis:</span> <span class="pre">~matplotlib.pyplot.axis</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;function</span> <span class="pre">figure</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36c220&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;function</span> <span class="pre">axis</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36ed40&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_new_fig"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Opens or parses a matplotlib figure and axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>figsize</strong> (<em>optional</em>) – list of figure height and width</p></li>
+<li><p><strong>figure</strong> (<em>optional</em>) – already open matplotlib figure</p></li>
+<li><p><strong>axis</strong> (<em>optional</em>) – already open matplotlib axis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>fig</strong>: matplotlib figure</p></li>
+<li><p><strong>axis</strong>: axis</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_copy_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rg_converter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_lims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontweight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_copy_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><blockquote>
+<div><p>Copy data from an xarray or larda dict to the plot data structure ‘pdata’.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – xarray or larda dict</p></li>
+<li><p><strong>colormp</strong> (<em>optional</em>) – string key from matplotlib colormaps</p></li>
+<li><p><strong>mask</strong> (<em>optional</em>) – additional variable mask (invalid/missing data)</p></li>
+<li><p><strong>rg_converter</strong> (<em>optional</em>) – if True converting from m to km for 2D plots</p></li>
+<li><p><strong>time_interval</strong> (<em>optional</em>) – restricts the xaxis for time series and 2D data</p></li>
+<li><p><strong>range_interval</strong> (<em>optional</em>) – restricts the yaxis for 2D data</p></li>
+<li><p><strong>var_lims</strong> (<em>optional</em>) – new data limits, default: var_lims of data</p></li>
+<li><p><strong>fontsize</strong> (<em>optional</em>) – figure font size</p></li>
+<li><p><strong>labelsize</strong> (<em>optional</em>) – colorbar label size</p></li>
+<li><p><strong>figsize</strong> (<em>optional</em>) – figure size list of height and width</p></li>
+<li><p><strong>fontweight</strong> (<em>optional</em>) – axis label font weight</p></li>
+<li><p><strong>cbar</strong> (<em>optional</em>) – if False, hides the colorbar from the plot</p></li>
+<li><p><strong>cmap</strong> (<em>optional</em>) – string according to matplotlib colormap lists</p></li>
+<li><p><strong>linewidth</strong> (<em>optional</em>) – width of time series data line plot</p></li>
+<li><p><strong>alpha</strong> (<em>optional</em>) – alpha of time series data line plot</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>pdata (plot data structure)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_masked_jumps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdata:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tdel_jumps:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tres:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'list'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;function</span> <span class="pre">array</span> <span class="pre">at</span> <span class="pre">0x7ff2ff80fce0&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_masked_jumps"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Fills data gaps with fill_values and masks them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pdata</strong> – plot data structure</p></li>
+<li><p><strong>tdel_jumps</strong> (<em>optional</em>) – time jump threshold in seconds</p></li>
+<li><p><strong>tres</strong> (<em>optional</em>) – target time resolution in seconds</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with data corrected for gaps</p>
+<ul class="simple">
+<li><p><strong>dt</strong> (list): datetimes</p></li>
+<li><p><strong>var</strong> (np.ma.ndarray): var</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_get_cbar_limits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdata:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_class:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_fraciton:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.13</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zlim:</span> <span class="pre">~typing.List[float]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'float'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'float'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_get_cbar_limits"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Returns the minimum and maximum value for the colorbar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pdata</strong></p></li>
+<li><p><strong>is_class</strong> (<em>optional</em>) – if True increas colorbar portion for larger labels</p></li>
+<li><p><strong>cbar_fraciton</strong> (<em>optional</em>) – colorbar fraction</p></li>
+<li><p><strong>zlim</strong> (<em>optional</em>) – if provided, these colorbar limits will get passed through</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>zlim - color bar axis limits</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_apply_2Dvar_converter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdata:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_converter:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_converter:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;function</span> <span class="pre">array</span> <span class="pre">at</span> <span class="pre">0x7ff2ff80fce0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'matplotlib.colors.LogNorm'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_apply_2Dvar_converter"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Converts a 2D numpy array for a given valid string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pdata</strong></p></li>
+<li><p><strong>var_converter</strong> (<em>optional</em>) – other name for variable converter string</p></li>
+<li><p><strong>z_converter</strong> (<em>optional</em>) – variable converter string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>var</strong>: converted variable</p></li>
+<li><p><strong>norm</strong>: matplotlib log norm</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_apply_1Dvar_converter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_converter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_converter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_apply_1Dvar_converter"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Converts a 1D numpy array for a given valid string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var</strong> – 1D numpy array data</p></li>
+<li><p><strong>var_converter</strong> (<em>optional</em>) – other name for variable converter string</p></li>
+<li><p><strong>z_converter</strong> (<em>optional</em>) – variable converter string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>va - converted array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_apply_log_scaling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_converter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_converter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_apply_log_scaling"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Converts the yaxis scale to log iff z_converter = ‘log’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> – matplotlib axis</p></li>
+<li><p><strong>var_converter</strong> (<em>optional</em>) – other name for variable converter string</p></li>
+<li><p><strong>z_converter</strong> (<em>optional</em>) – variable converter string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>va - converted array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_get_colormap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'colormap_name'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_get_colormap"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Parse colormap string or check for additional color maps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pdata</strong> – plot data</p></li>
+<li><p><strong>name</strong> – key of the colormap string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>cmap - colormap string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_add_contour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rg_converter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">axis</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_add_contour"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Plots contour lines with label ontop of an existing matplotlib axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> – plot axis</p></li>
+<li><p><strong>contour</strong> (<em>optional</em>) – dictionary with keys ‘data’ and ‘levels’ (optional), where data is an xarray or larda dict</p></li>
+<li><p><strong>rg_converter</strong> (<em>optional</em>) – if True convert range from meter to kilometer</p></li>
+<li><p><strong>fontsize</strong> (<em>optional</em>) – size of contour labels</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>ax</strong>: axis</p></li>
+<li><p><strong>pcont</strong>:</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_format_timexaxis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">axis</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_format_timexaxis"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Zoom to a specific time interval and format xaxis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> – plot axis</p></li>
+<li><p><strong>pdata</strong> – plot structure data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axis - plot axis</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_set_xticks_and_xlabels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_extend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">timedelta</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">axis</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_set_xticks_and_xlabels"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function sets the ticks and labels of the x-axis (only when the x-axis is time in UTC).</p>
+<dl class="simple">
+<dt>Options:</dt><dd><ul class="simple">
+<li><p>time_extend &gt; 7 days:               major ticks every 2 day,  minor ticks every 12 hours</p></li>
+<li><p>7 days &gt; time_extend &gt; 2 days:      major ticks every day, minor ticks every  6 hours</p></li>
+<li><p>2 days &gt; time_extend &gt; 1 days:      major ticks every 12 hours, minor ticks every  3 hours</p></li>
+<li><p>1 days &gt; time_extend &gt; 6 hours:     major ticks every 3 hours, minor ticks every  30 minutes</p></li>
+<li><p>6 hours &gt; time_extend &gt; 1 hour:     major ticks every hour, minor ticks every  15 minutes</p></li>
+<li><p>else:                               major ticks every 15 minutes, minor ticks every  5 minutes</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> – axis in which the x-ticks and labels have to be set</p></li>
+<li><p><strong>time_extend</strong> – time difference of t_end - t_start (format datetime.timedelta)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axis - axis with new ticks and labels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_format_rangeyaxis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rg_converter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">axis</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_format_rangeyaxis"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Zoom to a specific range interval and format yaxis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> – plot axis</p></li>
+<li><p><strong>pdata</strong> – plot structure data</p></li>
+<li><p><strong>rg_converter</strong> – if True convert range from meter to kilometer</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axis - plot axis</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_format_xaxis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontweight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">axis</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_format_xaxis"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>More general x axis formatting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> – plot axis</p></li>
+<li><p><strong>pdata</strong> – plot data structure</p></li>
+<li><p><strong>fontsize</strong> (<em>optional</em>) – size of labels</p></li>
+<li><p><strong>fontweight</strong> (<em>optional</em>) – weight of labels</p></li>
+<li><p><strong>label</strong> – label for xaxis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axis - plot axis</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_format_yaxis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontweight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">axis</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_format_yaxis"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>More general y axis formatting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> – plot axis</p></li>
+<li><p><strong>pdata</strong> – plot data structure</p></li>
+<li><p><strong>fontsize</strong> (<em>optional</em>) – size of labels</p></li>
+<li><p><strong>fontweight</strong> (<em>optional</em>) – weight of labels</p></li>
+<li><p><strong>label</strong> – label for xaxis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axis - plot axis</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_plot_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis:</span> <span class="pre">~matplotlib.pyplot.axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdata:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_str:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;function</span> <span class="pre">axis</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36ed40&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'matplotlib.lines.Line2D'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_plot_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>plot a line or step</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> – plot axis</p></li>
+<li><p><strong>pdata</strong> – plot data structure</p></li>
+<li><p><strong>label_str</strong> – label of line</p></li>
+<li><p><strong>step</strong> (<em>bool</em><em> or </em><em>str</em>) – ‘pre’, ‘mid’, ‘post’, default False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>ax</strong>: plot axis</p></li>
+<li><p><strong>line</strong>: Line2D</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_format_cbaraxis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure:</span> <span class="pre">~matplotlib.pyplot.figure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis:</span> <span class="pre">~matplotlib.pyplot.axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcmesh:</span> <span class="pre">~matplotlib.pyplot.pcolormesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdata:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_by:</span> <span class="pre">dict</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_scatter:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_class:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clim:</span> <span class="pre">~typing.List[float]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;function</span> <span class="pre">axis</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36ed40&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;function</span> <span class="pre">colorbar</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36dc60&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_format_cbaraxis"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Formates the colorbar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>figure</strong> – plot figure</p></li>
+<li><p><strong>axis</strong> – plot axis</p></li>
+<li><p><strong>pcmesh</strong> – colormesh plot</p></li>
+<li><p><strong>pdata</strong> – plot data structure</p></li>
+<li><p><strong>color_by</strong> (<em>optional</em>) – larda container</p></li>
+<li><p><strong>is_scatter</strong> (<em>optional</em>) – if True adapt colorbar for scatter plot</p></li>
+<li><p><strong>is_class</strong> (<em>optional</em>) – if True adapt colorbar with discrete labels</p></li>
+<li><p><strong>remove</strong> (<em>optional</em>) – if True remove colorbar</p></li>
+<li><p><strong>clim</strong> (<em>optional</em>) – colorbar limits</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>ax</strong>: plot axis</p></li>
+<li><p><strong>cbar</strong>: colorbar</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_axis_label_from_meta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_axis_label_from_meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Generates an automated axis label from data
+using system name, variable name and variable unit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pdata</strong> – plot data structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>str - axis label</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_format_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure:</span> <span class="pre">~matplotlib.pyplot.figure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis:</span> <span class="pre">~matplotlib.pyplot.axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcmesh:</span> <span class="pre">~matplotlib.pyplot.pcolormesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdata:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdatai:</span> <span class="pre">dict</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_by:</span> <span class="pre">dict</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;function</span> <span class="pre">axis</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36ed40&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;function</span> <span class="pre">colorbar</span> <span class="pre">at</span> <span class="pre">0x7ff2fe36dc60&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_format_axis"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Format all axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>figure</strong> – plot figure</p></li>
+<li><p><strong>axis</strong> – plot axis</p></li>
+<li><p><strong>pcmesh</strong> – colormesh plot</p></li>
+<li><p><strong>pdata</strong> – plot data structure</p></li>
+<li><p><strong>pdatai</strong> (<em>optional</em>) – additional plot data structure, formatting scatter plots</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple with</p>
+<ul class="simple">
+<li><p><strong>ax</strong>: axis</p></li>
+<li><p><strong>cbar</strong>: colorbar</p></li>
+<li><p><strong>var_lims</strong>: y axis limits</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_set_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">axis</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_set_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Set/remove or auto generate a title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> – plot axis</p></li>
+<li><p><strong>pdata</strong> – plot data structure</p></li>
+<li><p><strong>title</strong> (<em>optional</em>) – title string</p></li>
+<li><p><strong>**title_loc</strong> (<em>optional</em>) – where to position title (‘center’, ‘left’, ‘right’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axis - plot axis</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_get_line_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_get_line_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Parse or auto generate a line label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pdata</strong> – plot data structure</p></li>
+<li><p><strong>label</strong> (<em>optional</em>) – label name if string or autogenerated label if True, else no label</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_Freedman_Diaconis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'unknown</span> <span class="pre">variable'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nbins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_Freedman_Diaconis"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Parse or calculate the optimum number of bins for a scatter plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var</strong> – array</p></li>
+<li><p><strong>name</strong> – variable name</p></li>
+<li><p><strong>Nbins</strong> (<em>optional</em>) – given number of bins</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nbins - number of bins</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Freedman-Diaconis rule: h=2×IQR×n−1/3. number of bins is (max−min)/h, where n is the number of observations
+<a class="reference external" href="https://stats.stackexchange.com/questions/798/calculating-optimal-number-of-bins-in-a-histogram">https://stats.stackexchange.com/questions/798/calculating-optimal-number-of-bins-in-a-histogram</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_create_histogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nbins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_lim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_lim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_create_histogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Calculates a histogram from two given arrays with same size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var1</strong> – array xdata</p></li>
+<li><p><strong>var2</strong> – array ydata</p></li>
+<li><p><strong>Nbins</strong> (<em>optional</em>) – number of bin in histogram</p></li>
+<li><p><strong>x_lim</strong> (<em>optional</em>) – x axis limit</p></li>
+<li><p><strong>y_lim</strong> (<em>optional</em>) – y axis limit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>hist - dictionary with histogram, x and y edges</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_color_by_3rd_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nbins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_color_by_3rd_variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Recalculates a given histogram for a given 3rd variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var1</strong> – array xdata</p></li>
+<li><p><strong>var2</strong> – array ydata</p></li>
+<li><p><strong>var3</strong> – array zdata</p></li>
+<li><p><strong>H</strong> – given histogram dict keys = H, xedges, yedges</p></li>
+<li><p><strong>Nbins</strong> – number of bin in histogram</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>hist - new histogram array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_get_pcmesh_kwargs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_get_pcmesh_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Returns a dict with vmin, vmax and norm for pcolormesh plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>H</strong> – histogram</p></li>
+<li><p><strong>clim</strong> – given limits</p></li>
+<li><p><strong>scale</strong> – scaling strategy</p></li>
+<li><p><strong>cmap</strong> – colormap</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict - pcmesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyLARDA.Transformations.</span></span><span class="sig-name descname"><span class="pre">_add_regression_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdata1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdata2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">axis</span></span></span><a class="reference internal" href="_modules/pyLARDA/Transformations.html#_add_regression_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Add textbox with y axis intersetion, slope and r^2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> – plot axis</p></li>
+<li><p><strong>pdata1</strong> – plot data structure</p></li>
+<li><p><strong>pdata2</strong> – plot data structure</p></li>
+<li><p><strong>info</strong></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axis - plot axis</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="how_to_use.html" class="btn btn-neutral float-left" title="How to use larda" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="guide_config.html" class="btn btn-neutral float-right" title="Guide to config-files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 pyLARDA-dev-team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
